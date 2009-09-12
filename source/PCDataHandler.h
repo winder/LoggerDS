@@ -25,6 +25,9 @@ class PCDataHandler: public DataHandler
 //    bool loadProfile(char* profile);
 //    bool loadDatabase(char* dbName);
 
+    // Loads filesystem for "profile_*"
+    bool loadDatabases(std::string& p);
+
   private:
 };
 

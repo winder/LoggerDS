@@ -10,9 +10,12 @@ Skeleton classes / Program flow:
 
 Need to make commands:
   DATABASE COMMANDS:
-  load <profile> - "profiles.dat"
+  load profiles   - "profiles.dat", a list of profile names (databases in profile?)
   load <database> - based on current profile, implicit creation
-                    if does not exist. "<profile>_<database>.dat"
+                    if does not exist. "<profile>_<database>_<description>.dat" where <database> is the type of
+                    database (gas, resturaunt, shopping, etc) and <description> is an option additional word
+                    (subaru, sable, etc).
+                  >>> load loads the database into the DataHandler Results container.
   enter data <data> - based on current database, write to disk.
                       Validation by DataHandler.
   get data - based on current database.

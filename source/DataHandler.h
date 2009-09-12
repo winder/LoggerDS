@@ -22,14 +22,20 @@ class DataHandler
     virtual ~DataHandler()
     { closeFiles(); };
 
+    void setProfile(std::string& p){ profile = p; }
+    void setDatabase(std::string& db){ database = db; }
+
+    const std::string& getProfile(){ return profile; }
+    const std::string& getDatabase(){ return database; }
+
     /* Filesystem Commands */
     // create
-    virtual bool createProfile(std::string& profile);
-    virtual bool createDatabase(std::string& dbName);
+    virtual bool createProfile(std::string& p);
+    virtual bool createDatabase(std::string& db);
 
     // load file
     virtual bool loadProfiles() = 0; // load all profiles to Results.
-    virtual bool loadDatabase(std::string& dbName);
+    virtual bool loadDatabase(std::string& db);
 
     // read
     virtual bool readProfile();
@@ -49,11 +55,10 @@ class DataHandler
   protected:
     FILE *pProfile;
     FILE *pDatabase;
+    Results *res;
 
-  private:
     std::string profile;
     std::string database;
-    Results *res;
 
 };
 
