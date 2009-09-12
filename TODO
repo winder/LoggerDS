@@ -1,0 +1,31 @@
+Skeleton classes / Program flow:
+  Main
+  CommandInterpreter
+  DataHandler
+  Results
+  CLI Input
+  GUI Input
+  GUI Display
+  Makefile
+
+Need to make commands:
+  DATABASE COMMANDS:
+  load <profile> - "profiles.dat"
+  load <database> - based on current profile, implicit creation
+                    if does not exist. "<profile>_<database>.dat"
+  enter data <data> - based on current database, write to disk.
+                      Validation by DataHandler.
+  get data - based on current database.
+  sort data <column> <ascend|descend> - based on current database.
+
+Filesystem I/O
+  READ
+  WRITE
+  init FAT for NDS
+  Default paths in global.h ("search" for folder with NDS?)
+
+Fluff
+  -Statistic calculation
+  -CLI display
+  -NDS GUI Display
+  -NDS GUI Input & command generation.

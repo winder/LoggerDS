@@ -1,0 +1,25 @@
+# App name
+BIN := LoggerDS
+# Build directory
+BUILD := build
+# Source directory
+SOURCES := source
+
+HFILES = $(wildcard *.h)
+CPPFILES = $(wildcard *.cpp)
+CFILES = $(wildcard *.c)
+
+FLAGS = -DCLI
+
+all: main
+	g++ -o $(BIN) $(FLAGS) *.o
+#
+main: classes
+	g++ -c $(FLAGS) $(SOURCES)/main.cpp
+#
+classes: $(HFILES) $(CPPFILES) $(CFILES)
+	g++ -c $(FLAGS) $(SOURCES)/*.cpp
+	gcc -c $(FLAGS) $(SOURCES)/*.c
+	
+clean:
+	rm *.o LoggerDS 
