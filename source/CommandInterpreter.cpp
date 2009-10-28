@@ -8,8 +8,9 @@
 
 #define print_profile "print profile"
 
-CommandInterpreter::CommandInterpreter()
+CommandInterpreter::CommandInterpreter(DataHandler *dhi)
 {
+  dh = dhi;
   error_message.clear();
 }
 
@@ -28,19 +29,19 @@ bool CommandInterpreter::handle(std::string &command)
       (command == quit2) ||
       (command == quit3))
   {
-    error = !DataHandlerSingleton::getInstance()->closeFiles();
+    error = !dh->closeFiles();
     exit(0);
   }
 
   // If the command begins with add_profile.
   else if ( 0 == command.find(add_profile))
   {
-    error = !DataHandlerSingleton::getInstance()->writeNewProfile(&command[strlen(add_profile)]);
+    error = !dh->writeNewProfile(&command[strlen(add_profile)]);
   }
 
   else if (command == print_profile)
   {
-    error = !DataHandlerSingleton::getInstance()->readProfile();
+    error = !dh->readProfile();
   }
 
   //} catch (StringException &st) {

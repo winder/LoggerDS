@@ -10,11 +10,11 @@
 
 int main(void)
 {
-  DataHandler* dh;
-  dh = DataHandlerSingleton::getInstance();
+  // This is the only place the DATAHANDLER macro is used.
+  DataHandler* dh = new DATAHANDLER();
   dh->loadProfiles();
 
-  CommandInterpreter *ci = new CommandInterpreter();
+  CommandInterpreter *ci = new CommandInterpreter(dh);
   std::string s_command;
   char command[512];
 

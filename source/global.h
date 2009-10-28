@@ -4,11 +4,13 @@
 
 // Setup the data handler depending on platform.
 #ifdef CLI
-#include "PCDataHandler.h"
-typedef Singleton<PCDataHandler> DataHandlerSingleton;
+  #include "PCDataHandler.h"
+  #define DATAHANDLER PCDataHandler
+  //#define Singleton<PCDataHandler> DataHandlerSingleton;
 #elif NDS
-#include "NDSDataHandler.h"
-typedef Singleton<NDSDataHandler> DataHandlerSingleton;
+  #include "NDSDataHandler.h"
+  #define DATAHANDLER NDSDataHandler
+  //typedef Singleton<NDSDataHandler> DataHandlerSingleton;
 #endif
 
 #endif

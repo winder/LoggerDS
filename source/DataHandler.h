@@ -3,7 +3,7 @@
 
 #define MAX_LINE_IN_FILE 256
 
-#include "Singleton.h"
+//#include "Singleton.h"
 #include "Results.h"
 #include "StringException.h"
 

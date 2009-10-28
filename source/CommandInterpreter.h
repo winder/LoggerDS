@@ -12,13 +12,14 @@
 class CommandInterpreter
 {
   public:
-    CommandInterpreter();
+    CommandInterpreter(DataHandler*);
 
     // Handle a command.
     bool handle(std::string&);
     std::string& getError(){ return error_message; }
 
   private:
+    DataHandler *dh;
     std::string error_message;
 };
 
