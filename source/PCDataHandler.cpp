@@ -1,5 +1,10 @@
 #include "PCDataHandler.h"
 
+PCDataHandler::PCDataHandler():DataHandler()
+{};
+
+PCDataHandler::~PCDataHandler(){};
+
 // load all profiles to Results.
 bool PCDataHandler::loadProfiles()
 {

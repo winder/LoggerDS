@@ -19,14 +19,16 @@ class DataHandler
 
     // Destructor checks if files are open and closes them.
     // For some reason this is never getting called on the PC
-    virtual ~DataHandler()
-    { closeFiles(); };
+    virtual ~DataHandler();
 
-    void setProfile(std::string& p){ profile = p; }
-    void setDatabase(std::string& db){ database = db; }
+    // Accessor
+    void print();
 
-    const std::string& getProfile(){ return profile; }
-    const std::string& getDatabase(){ return database; }
+    void setProfile(std::string& p);
+    void setDatabase(std::string& db);
+
+    const std::string& getProfile();
+    const std::string& getDatabase();
 
     /* Filesystem Commands */
     // create
@@ -49,8 +51,8 @@ class DataHandler
     bool closeFiles();
 
     // Getters
-    const std::string& getProfileName(){ return profile; }
-    const std::string& getDatabaseName(){ return database; }
+    const std::string& getProfileName();
+    const std::string& getDatabaseName();
 
   protected:
     FILE *pProfile;
@@ -59,7 +61,6 @@ class DataHandler
 
     std::string profile;
     std::string database;
-
 };
 
 // global definition.

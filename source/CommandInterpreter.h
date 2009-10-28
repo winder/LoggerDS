@@ -16,7 +16,7 @@ class CommandInterpreter
 
     // Handle a command.
     bool handle(std::string&);
-    std::string& getError(){ return error_message; }
+    std::string& getError();
 
   private:
     DataHandler *dh;

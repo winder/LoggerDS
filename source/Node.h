@@ -6,21 +6,16 @@
 class Node
 {
   public:
-    Node(){};
-    Node(const char* input)
-    {
-      string_value = input;
-    }
-
-    Node(std::string& input)
-    {
-      string_value = input;
-    }
+    // Constructor and Constructor + initialization.
+    Node();
+    Node(const char* input);
+    Node(std::string& input);
 
     // Get the string representation of the node.
-    const std::string& getString(){ return string_value; }
+    const std::string& getString();
+    void setString(const char* input);
+    void setString(std::string& input);
 
-    void setString(const char* input){ string_value = input; } 
   private:
     std::string string_value;
 };

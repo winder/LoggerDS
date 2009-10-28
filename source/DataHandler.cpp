@@ -10,8 +10,39 @@ DataHandler::DataHandler()
   res = new Results();
 }
 
+DataHandler::~DataHandler()
+{
+  closeFiles();
+}
+
+void DataHandler::print()
+{
+  res->print();
+}
+
+void DataHandler::setProfile(std::string& p)
+{
+  profile = p;
+}
+
+void DataHandler::setDatabase(std::string& db)
+{
+  database = db;
+}
+
+const std::string& DataHandler::getProfile()
+{
+  return profile;
+}
+
+const std::string& DataHandler::getDatabase()
+{
+  return database;
+}
+
 bool DataHandler::createProfile(std::string& profile)
 { return true; }
+
 bool DataHandler::createDatabase(std::string& dbName)
 { return true; }
 
@@ -91,4 +122,14 @@ bool DataHandler::closeFiles()
   }
 
   return true;
+}
+
+const std::string& DataHandler::getProfileName()
+{
+  return profile;
+}
+
+const std::string& DataHandler::getDatabaseName()
+{
+  return database;
 }

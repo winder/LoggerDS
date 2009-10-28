@@ -1,5 +1,11 @@
 #include "NDSDataHandler.h"
 
+NDSDataHandler::NDSDataHandler():DataHandler()
+{};
+
+NDSDataHandler::~NDSDataHandler()
+{};
+
 // load all profiles to Results.
 bool NDSDataHandler::loadProfiles()
 {

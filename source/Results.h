@@ -1,8 +1,9 @@
 #ifndef RESULTS_H
 #define RESULTS_H
 
-#include <vector>
+#include <list>
 #include "Node.h"
+#include <stdio.h>
 
 // This is a simple container class for NODE values.
 // It is used to store the content of "database" and will be required to do
@@ -12,28 +13,18 @@
 class Results
 {
   public:
-
     // Information
-    unsigned int size(){ return data.size(); }
+    unsigned int size();
 
     bool addNode(Node* n);
     Node* getNode(int index);
 
     void print();
 
-    void clear()
-    {
-      // data is a vector of pointers, so delete them before clearing them out.
-      std::vector<Node*>::iterator it;
-      for (it=data.begin(); it!=data.end(); it++)
-        delete (*it);
-
-      data.clear();
-    }
+    void clear();
 
   private:
-    std::vector<Node*> data;
-
+    std::list<Node*> data;
 };
 
 #endif

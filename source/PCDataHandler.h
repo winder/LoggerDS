@@ -11,9 +11,9 @@
 class PCDataHandler: public DataHandler
 {
   public:
-    PCDataHandler():DataHandler(){};
+    PCDataHandler();
 
-    virtual ~PCDataHandler(){};
+    virtual ~PCDataHandler();
     /* Filesystem Commands */
 
     // create

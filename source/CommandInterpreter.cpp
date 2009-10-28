@@ -8,6 +8,8 @@
 
 #define print_profile "print profile"
 
+#define print "print"
+
 CommandInterpreter::CommandInterpreter(DataHandler *dhi)
 {
   dh = dhi;
@@ -24,7 +26,10 @@ bool CommandInterpreter::handle(std::string &command)
   // before everything.
   try{
 
-  // Quit...
+  //=======================//
+  // QUIT                  //
+  //=======================//
+  
   if ((command == quit1) ||
       (command == quit2) ||
       (command == quit3))
@@ -33,15 +38,27 @@ bool CommandInterpreter::handle(std::string &command)
     exit(0);
   }
 
+  //=======================//
+  // ADD PROFILE <string>  //
+  //=======================//
   // If the command begins with add_profile.
   else if ( 0 == command.find(add_profile))
   {
     error = !dh->writeNewProfile(&command[strlen(add_profile)]);
   }
 
-  else if (command == print_profile)
+  //========================//
+  // PRINT PROFILE <string> //
+  //========================//
+  // Prints currently saved results.
+  else if (command == print)
   {
     error = !dh->readProfile();
+  }
+
+  else if (command == print_profile)
+  {
+    //???
   }
 
   //} catch (StringException &st) {
@@ -57,4 +74,9 @@ bool CommandInterpreter::handle(std::string &command)
 
   // Success is inverse of error.
   return !error;     
+}
+
+std::string& CommandInterpreter::getError()
+{
+  return error_message;
 }

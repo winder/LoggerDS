@@ -15,8 +15,8 @@
 class NDSDataHandler: public DataHandler
 {
   public:
-    NDSDataHandler():DataHandler(){};
-    virtual ~NDSDataHandler(){};
+    NDSDataHandler();
+    virtual ~NDSDataHandler();
 
     /* Filesystem Commands */
 
