@@ -7,7 +7,6 @@
 #include <string>
 #include "CommandInterpreter.h"
 
-
 int main(void)
 {
   // This is the only place the DATAHANDLER macro is used.
@@ -22,7 +21,20 @@ int main(void)
   InitializeConsole();
   InitializeFilesystem();
   InitializeGraphics();
+  /*
+    // Create an entirely seperate main loop for DS / PC eventually.
+    CommandConsoleState ccs;
+    ccs.init();
+
+    while(1)
+    {
+      ccs.updateState();
+      swiWaitForVBlank();
+    }
+  */
   #endif
+
+
 
 	bool running = true;
 	while(running)
@@ -42,8 +54,9 @@ int main(void)
           *newline = '\0';
       }
     #elif NDS
-      printf("> DSMODE, command = asdfg\n");
-      strcpy(command, "asdfg");
+      command[0] = rand() % 78;
+      printf("> DSMODE, command = %s\n", command);
+      strcpy(command, command);
       // GUI Interaction
       // This block happens once per frame
     #endif
@@ -54,7 +67,9 @@ int main(void)
     if (0 != s_command.length())
     {
       if (ci->handle(s_command))
-      { /* nothing for good case. */ }
+      {
+        // nothing for good case.
+      }
       else
       {
         #ifdef CLI

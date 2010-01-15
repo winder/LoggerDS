@@ -18,18 +18,8 @@ class NDSDataHandler: public DataHandler
     NDSDataHandler();
     virtual ~NDSDataHandler();
 
-    /* Filesystem Commands */
-
-    // create
-//    bool createProfile(char* profile);
-//    bool createDatabase(char* dbName);
-
-    // load
-    bool loadProfiles(); // load all profiles to Results.
-//    bool loadProfile(char* profile);
-//    bool loadDatabase(char* dbName);
-
-  private:
+  protected:
+    FILE* openFile(const char*, const char*);
 };
 
 #endif

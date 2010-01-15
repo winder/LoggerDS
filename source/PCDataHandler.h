@@ -14,21 +14,9 @@ class PCDataHandler: public DataHandler
     PCDataHandler();
 
     virtual ~PCDataHandler();
-    /* Filesystem Commands */
 
-    // create
-//    bool createProfile(char* profile);
-//    bool createDatabase(char* dbName);
-
-    // load
-    bool loadProfiles(); // load all profiles to Results.
-//    bool loadProfile(char* profile);
-//    bool loadDatabase(char* dbName);
-
-    // Loads filesystem for "profile_*"
-    bool loadDatabases(std::string& p);
-
-  private:
+  protected:
+    FILE* openFile(const char* filename, const char* permissions);
 };
 
 #endif

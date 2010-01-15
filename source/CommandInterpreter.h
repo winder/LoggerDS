@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "StringException.h"
+#include "DataHandler.h"
 
 #include <stdio.h>
 #include <string>

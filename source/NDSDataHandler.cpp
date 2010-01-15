@@ -7,6 +7,14 @@ NDSDataHandler::~NDSDataHandler()
 {};
 
 // load all profiles to Results.
+FILE* NDSDataHandler::openFile(const char* filename, const char* permissions)
+{
+  // TODO: search the proper path
+  return fopen(filename, permissions);
+}
+
+/*
+// load all profiles to Results.
 bool NDSDataHandler::loadProfiles()
 {
   // Locate profiles.loggerDS
@@ -19,3 +27,4 @@ bool NDSDataHandler::loadProfiles()
 
   return true;
 }
+*/

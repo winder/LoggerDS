@@ -4,6 +4,7 @@ DataHandler::DataHandler()
 {
   profile.clear();
   database.clear();
+  pProfiles = NULL;
   pProfile = NULL;
   pDatabase = NULL;
 
@@ -46,14 +47,14 @@ bool DataHandler::createProfile(std::string& profile)
 bool DataHandler::createDatabase(std::string& dbName)
 { return true; }
 
-bool DataHandler::readProfile()
+bool DataHandler::readProfiles()
 {
-  if (pProfile == NULL)
+  if (pProfiles == NULL)
     throw StringException("Bad file pointer.");
 
-  rewind(pProfile);
+  rewind(pProfiles);
 
-  if ( feof(pProfile) )
+  if ( feof(pProfiles) )
     throw StringException("End of file.");
 
   res->clear();
@@ -61,7 +62,7 @@ bool DataHandler::readProfile()
   char read[256];
   char *newline;
   // Read the file.
-  while (fgets(read, sizeof(read), pProfile))
+  while (fgets(read, sizeof(read), pProfiles))
   {
     newline = strchr(read, '\n');
     if (newline != NULL)
@@ -74,17 +75,19 @@ bool DataHandler::readProfile()
   return true;
 }
 
-bool DataHandler::loadDatabase(std::string& dbName)
-{ return true; }
-
 bool DataHandler::writeToDatabase(const std::string& lineInDatabase)
 {
   return writeLineToFile(lineInDatabase, pDatabase, MAX_LINE_IN_FILE);
 }
 
-bool DataHandler::writeNewProfile(const std::string& profileName)
+bool DataHandler::addProfile(const std::string& profileName)
 {
-  return writeLineToFile(profileName, pProfile, MAX_LINE_IN_FILE);
+  return writeLineToFile(profileName, pProfiles, MAX_LINE_IN_FILE);
+}
+
+bool DataHandler::addDatabase(const std::string& databaseName)
+{
+  return writeLineToFile(databaseName, pProfile, MAX_LINE_IN_FILE);
 }
 
 bool DataHandler::writeLineToFile(const std::string& line, FILE* file, unsigned int maxLine)
@@ -110,10 +113,15 @@ bool DataHandler::writeLineToFile(const std::string& line, FILE* file, unsigned 
 
 bool DataHandler::closeFiles()
 {
+  if (pProfiles != NULL)
+  {
+    fclose(pProfiles);
+    printf("closed profiles...\n");
+  }
   if (pProfile != NULL)
   {
     fclose(pProfile);
-    printf("closed profile...\n");
+    printf("closed \"%s\"...\n", profile.c_str());
   }
   if (pDatabase != NULL)
   {
@@ -124,12 +132,44 @@ bool DataHandler::closeFiles()
   return true;
 }
 
-const std::string& DataHandler::getProfileName()
+// load all profiles.dat to Results.
+bool DataHandler::loadProfiles()
 {
-  return profile;
+  // Locate profiles.dat
+  // look in current directory only.
+  pProfiles = openFile("profiles.dat", "r+");
+
+  if (pProfiles == NULL)
+  {
+    pProfiles = openFile("profiles.dat", "w+");
+    fputs("Default\n", pProfiles);
+    fputs("Owen\n", pProfiles);
+  }
+
+  readProfiles();
+
+  return true;
 }
 
-const std::string& DataHandler::getDatabaseName()
+// load specified profile.
+bool DataHandler::loadProfile(const std::string& pf)
 {
-  return database;
+  if (pProfile != NULL)
+    fclose(pProfile);
+
+  profile = pf;
+  pProfile = openFile(pf.c_str(), "r+");
+
+  if (pProfile == NULL)
+  {
+    pProfile = openFile(pf.c_str(), "w+");
+  }
+
+  if (pProfile == NULL)
+    throw StringException("Couldn't open the file for some reason...");
+    
+
+//  readFile();
+
+  return true;
 }

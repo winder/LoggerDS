@@ -18,7 +18,6 @@ class DataHandler
     DataHandler();
 
     // Destructor checks if files are open and closes them.
-    // For some reason this is never getting called on the PC
     virtual ~DataHandler();
 
     // Accessor
@@ -32,29 +31,31 @@ class DataHandler
 
     /* Filesystem Commands */
     // create
-    virtual bool createProfile(std::string& p);
-    virtual bool createDatabase(std::string& db);
+    bool createProfile(std::string& p);
+    bool createDatabase(std::string& db);
 
     // load file
-    virtual bool loadProfiles() = 0; // load all profiles to Results.
-    virtual bool loadDatabase(std::string& db);
+    // load all profiles from profiles.dat to Results.
+    bool loadProfiles();
+    bool loadProfile(const std::string& pf);
+//    virtual bool loadDatabase(std::string& db) = 0;
 
     // read
-    virtual bool readProfile();
+    bool readProfiles();
 
     // write
+    bool addProfile(const std::string& profileName);
+    bool addDatabase(const std::string& databaseName);
     bool writeLineToFile(const std::string&, FILE*, unsigned int);
-    bool writeNewProfile(const std::string& profileName);
     bool writeToDatabase(const std::string& lineInDatabase);
 
     // close files
     bool closeFiles();
 
-    // Getters
-    const std::string& getProfileName();
-    const std::string& getDatabaseName();
-
   protected:
+    virtual FILE* openFile(const char* filename, const char* permissions) = 0;
+
+    FILE *pProfiles;
     FILE *pProfile;
     FILE *pDatabase;
     Results *res;
