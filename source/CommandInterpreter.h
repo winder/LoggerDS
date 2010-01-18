@@ -2,6 +2,7 @@
 #define COMMANDINTERPRETER_H
 
 #include "global.h"
+#include "platform.h"
 #include "StringException.h"
 #include "DataHandler.h"
 

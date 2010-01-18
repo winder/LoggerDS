@@ -1,24 +1,24 @@
 #include "CommandInterpreter.h"
 
-#define help1 "?"
-#define help2 "help"
+#define HELP1 "?"
+#define HELP2 "help"
 
-#define quit1 "quit"
-#define quit2 "exit"
-#define quit3 "q"
+#define QUIT1 "quit"
+#define QUIT2 "exit"
+#define QUIT3 "q"
 
-#define add_profile "add profile "
+#define ADD_PROFILE "add profile "
 
-#define add_database "add database "
+#define ADD_DATABASE "add database "
 
-#define load_profile "load profile "
-#define load_database "load database "
+#define LOAD_LIST "load list"
+#define LOAD_PROFILE "load profile "
+#define LOAD_DATABASE "load database "
+#define RELOAD "reload"
 
-#define print_profile "print profile"
+#define PRINT "print"
 
-#define print "print"
-
-#define state "state"
+#define STATE "state"
 
 CommandInterpreter::CommandInterpreter(DataHandler *dhi)
 {
@@ -34,15 +34,15 @@ bool CommandInterpreter::handle(std::string &command)
   /* attempt to handle command */
 
   // before everything.
-  try{
+  try {
 
   //=======================//
   // QUIT                  //
   //=======================//
   
-  if ((command == quit1) ||
-      (command == quit2) ||
-      (command == quit3))
+  if ((command == QUIT1) ||
+      (command == QUIT2) ||
+      (command == QUIT3))
   {
     error = !dh->closeFiles();
     exit(0);
@@ -52,41 +52,46 @@ bool CommandInterpreter::handle(std::string &command)
   // HELP                  //
   //=======================//
 
-  else if ((command == help1) ||
-           (command == help2))
+  else if ((command == HELP1) ||
+           (command == HELP2))
   {
     error = false;
 
     printf("Commands:\n");
     printf("   Help - prints this dialog:\n");
-    printf("     %s, %s\n", help1, help2);
+    printf("     %s, %s\n", HELP1, HELP2);
     printf("   Quit - exits program:\n");
-    printf("     %s, %s, %s\n", quit1, quit2, quit3);
+    printf("     %s, %s, %s\n", QUIT1, QUIT2, QUIT3);
     printf("   Add Profile - Add entry to profile list.\n");
-    printf("     %s <name>\n", add_profile);
+    printf("     %s <name>\n", ADD_PROFILE);
     printf("   Add Database - Add entry to selected profiles db list.\n");
-    printf("     %s <name>\n", add_database);
+    printf("     %s <name>\n", ADD_DATABASE);
+    printf("   Load List - Load the list of profiles.\n");
+    printf("     %s \n", LOAD_LIST);
     printf("   Load Profile - Load chosen profile.\n");
-    printf("     %s <name>\n", load_profile);
+    printf("     %s <name>\n", LOAD_PROFILE);
     printf("   Load Database - Load chosen database using profile.\n");
-    printf("     %s <name>\n", load_database);
-    printf("   Print Profile - prints selected profile list.\n");
-    printf("     %s\n", print_profile);
+    printf("     %s <name>\n", LOAD_DATABASE);
+    printf("   Reload - Reloads the current opened file.\n");
+    printf("     %s\n", RELOAD);
     printf("   Print - prints list of profiles.\n");
-    printf("     %s\n", print);
+    printf("     %s\n", PRINT);
     printf("   State - prints out current state info.\n");
-    printf("     %s\n", state);
+    printf("     %s\n", STATE);
   }
 
   //=======================//
   // STATE                 //
   //=======================//
-  else if (command == state)
+  else if (command == STATE)
   {
     error = false;
 
     printf("Profile name = %s\n", dh->getProfile().c_str());
     printf("Database name = %s\n", dh->getDatabase().c_str());
+
+    printf("Opened File = %s, type = %d\n",
+        dh->getOpenedFilename().c_str(), dh->getOpenedType());
     
   }
 
@@ -94,15 +99,16 @@ bool CommandInterpreter::handle(std::string &command)
   // ADD PROFILE <string>  //
   //=======================//
   // If the command begins with add_profile.
-  else if (0 == command.find(add_profile))
+  else if (0 == command.find(ADD_PROFILE))
   {
     // TODO: Check if it already exists.
-    error = !dh->addProfile( &command[ strlen(add_profile) ] );
+    error = !dh->addProfile( &command[ strlen(ADD_PROFILE) ] );
+    dh->reloadFile();
   }
 
-  else if (0 == command.find(add_database))
+  else if (0 == command.find(ADD_DATABASE))
   {
-    char *cP = &command[strlen(add_database)];
+    char *cP = &command[strlen(ADD_DATABASE)];
 
     if (!isdigit( cP[0] ))
     {
@@ -121,37 +127,52 @@ bool CommandInterpreter::handle(std::string &command)
 
       // TODO: Check type is valid.
 
-      error = !dh->addDatabase( &command[ strlen(add_database) ] );
+      error = !dh->addDatabase( &command[ strlen(ADD_DATABASE) ] );
+      dh->reloadFile();
     }
+  }
+
+  //=======================//
+  // LOAD PROFILE LIST     //
+  //=======================//
+  else if (0 == command.find(LOAD_LIST))
+  {
+    dh->loadProfiles();
+    error = false;
   }
 
   //=======================//
   // LOAD PROFILE <string> //
   //=======================//
-  else if (0 == command.find(load_profile))
+  else if (0 == command.find(LOAD_PROFILE))
   {
-    std::string str = &command[ strlen(load_profile) ];
+    std::string str = &command[ strlen(LOAD_PROFILE) ];
     str += ".dat";
     error = !dh->loadProfile( str );
   }
-  else if (0 == command.find(load_database))
+
+  //========================//
+  // LOAD DATABASE <string> //
+  //========================//
+  else if (0 == command.find(LOAD_DATABASE))
   {
     error = true;
     error_message = "load database not implemented.";
   }
 
-  // Prints currently saved results.
-  else if (command == print)
+  //========================//
+  // RELOAD                 //
+  //========================//
+  else if (0 == command.find(RELOAD))
   {
-    error = !dh->readProfiles();
+    dh->reloadFile();
   }
 
-  //========================//
-  // PRINT PROFILE <string> //
-  //========================//
-  else if (command == print_profile)
+  // Prints currently saved results.
+  else if (command == PRINT)
   {
-    //???
+    dh->print();
+    error = false;
   }
 
   } catch (StringException &st) {

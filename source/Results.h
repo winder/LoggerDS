@@ -1,6 +1,7 @@
 #ifndef RESULTS_H
 #define RESULTS_H
 
+#include "global.h"
 #include <list>
 #include "Node.h"
 #include <stdio.h>
@@ -17,6 +18,7 @@ class Results
     unsigned int size();
 
     bool addNode(Node* n);
+    bool addNode(char* text, int type);
     Node* getNode(int index);
 
     void print();

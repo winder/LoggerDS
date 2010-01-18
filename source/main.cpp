@@ -3,6 +3,7 @@
 #endif
 
 #include "global.h"
+#include "platform.h"
 #include <stdio.h>
 #include <string>
 #include "CommandInterpreter.h"

@@ -11,10 +11,16 @@ bool Results::addNode(Node* n)
   data.push_back(n);
 }
 
+bool Results::addNode( char* text, int type )
+{
+  if (type == TEXT)
+  {
+    addNode( new Node(text) );
+  }
+}
+
 Node* Results::getNode(int index)
 {
-//  if (index < data.size())
-//    return data[index];
   int count;
   std::list<Node*>::iterator it;
   for (it=data.begin(), count=0; (count < index) && (it!=data.end()); it++)
@@ -25,12 +31,15 @@ Node* Results::getNode(int index)
 
 void Results::print()
 {
-//  for(int i=0; i < size(); i++)
-//    printf("%s,", getNode(i)->getString().c_str());
-
   std::list<Node*>::iterator it;
   for (it=data.begin(); it!=data.end(); it++)
-    printf("%s,", (*it)->getString().c_str());
+  {
+    if (it != data.begin())
+      printf(",");
+    printf("%s", (*it)->getString().c_str());
+  }
+  printf("\n");
+  fflush(stdout);
 }
 
 void Results::clear()

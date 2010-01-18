@@ -21,16 +21,6 @@ void DataHandler::print()
   res->print();
 }
 
-void DataHandler::setProfile(std::string& p)
-{
-  profile = p;
-}
-
-void DataHandler::setDatabase(std::string& db)
-{
-  database = db;
-}
-
 const std::string& DataHandler::getProfile()
 {
   return profile;
@@ -41,20 +31,38 @@ const std::string& DataHandler::getDatabase()
   return database;
 }
 
+const std::string& DataHandler::getOpenedFilename()
+{
+  return currentFilename;
+}
+
+const int DataHandler::getOpenedType()
+{
+  return currentType;
+}
+
 bool DataHandler::createProfile(std::string& profile)
-{ return true; }
+{
+  return true;
+}
 
 bool DataHandler::createDatabase(std::string& dbName)
-{ return true; }
-
-bool DataHandler::readProfiles()
 {
-  if (pProfiles == NULL)
+  return true;
+}
+
+bool DataHandler::readFile(const std::string& filename, FILE *fp, int type)
+{
+  currentFilename = filename;
+  currentFile = fp;
+  currentType = type;
+
+  if (currentFile == NULL)
     throw StringException("Bad file pointer.");
 
-  rewind(pProfiles);
+  rewind(currentFile);
 
-  if ( feof(pProfiles) )
+  if ( feof(currentFile) )
     throw StringException("End of file.");
 
   res->clear();
@@ -62,17 +70,20 @@ bool DataHandler::readProfiles()
   char read[256];
   char *newline;
   // Read the file.
-  while (fgets(read, sizeof(read), pProfiles))
+  while (fgets(read, sizeof(read), currentFile))
   {
     newline = strchr(read, '\n');
     if (newline != NULL)
       *newline = '\0';
-    res->addNode( new Node(read) ); 
+    res->addNode( read , currentType ); 
   }
 
-  res->print();
-
   return true;
+}
+
+bool DataHandler::reloadFile()
+{
+  readFile(currentFilename, currentFile, currentType );
 }
 
 bool DataHandler::writeToDatabase(const std::string& lineInDatabase)
@@ -146,7 +157,7 @@ bool DataHandler::loadProfiles()
     fputs("Owen\n", pProfiles);
   }
 
-  readProfiles();
+  readFile("profiles.dat", pProfiles, TEXT);
 
   return true;
 }
@@ -168,8 +179,7 @@ bool DataHandler::loadProfile(const std::string& pf)
   if (pProfile == NULL)
     throw StringException("Couldn't open the file for some reason...");
     
-
-//  readFile();
+  readFile(pf, pProfile, TEXT);
 
   return true;
 }

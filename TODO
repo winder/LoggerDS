@@ -10,8 +10,7 @@ Skeleton classes / Program flow:
 
 Need to make commands:
   DATABASE COMMANDS:
-  load profiles   - "profiles.dat", a list of profile names (databases in profile?)
-  load <database> - based on current profile, implicit creation
+  load database <type> <name> - based on current profile, implicit creation
                     if does not exist. "<profile>_<database>_<description>.dat" where <database> is the type of
                     database (gas, resturaunt, shopping, etc) and <description> is an option additional word
                     (subaru, sable, etc).
@@ -20,6 +19,17 @@ Need to make commands:
                       Validation by DataHandler.
   get data - based on current database.
   sort data <column> <ascend|descend> - based on current database.
+
+Implemented Commands:
+  help / ?        - prints a list of commands with simple description.
+  quit / exit / q - exits the program.
+  load list       - "profiles.dat", a list of profile names (databases in profile?)
+  load profile    - opens a profile (TODO add error checking)
+  add profile     - adds an entry to profiles.dat
+  add database    - adds an entry to currently loaded profile
+  print           - prints the current result set
+  state           - prints the current result state.
+  
 
 Filesystem I/O
   READ

@@ -23,11 +23,11 @@ class DataHandler
     // Accessor
     void print();
 
-    void setProfile(std::string& p);
-    void setDatabase(std::string& db);
-
     const std::string& getProfile();
     const std::string& getDatabase();
+
+    const std::string& getOpenedFilename();
+    const int getOpenedType();
 
     /* Filesystem Commands */
     // create
@@ -41,7 +41,8 @@ class DataHandler
 //    virtual bool loadDatabase(std::string& db) = 0;
 
     // read
-    bool readProfiles();
+    bool readFile(const std::string& filename, FILE *fp, int type);
+    bool reloadFile();
 
     // write
     bool addProfile(const std::string& profileName);
@@ -55,6 +56,10 @@ class DataHandler
   protected:
     virtual FILE* openFile(const char* filename, const char* permissions) = 0;
 
+    std::string currentFilename;
+    FILE *currentFile;
+    int currentType;
+
     FILE *pProfiles;
     FILE *pProfile;
     FILE *pDatabase;
@@ -64,6 +69,4 @@ class DataHandler
     std::string database;
 };
 
-// global definition.
-//typedef Singleton<DataHandler> DataHandlerSingleton;
 #endif
