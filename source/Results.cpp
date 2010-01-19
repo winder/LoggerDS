@@ -15,7 +15,9 @@ bool Results::addNode( char* text, int type )
 {
   if (type == TEXT)
   {
-    addNode( new Node(text) );
+    Node *n = new Node();
+    if ( n->setString(text) )
+      addNode( n );
   }
 }
 

@@ -8,15 +8,17 @@ class Node
   public:
     // Constructor and Constructor + initialization.
     Node();
-    Node(const char* input);
-    Node(std::string& input);
+// No additional constructors so input can be validated.
+//    Node(const char* input);
+//    Node(std::string& input);
 
     // Get the string representation of the node.
     const std::string& getString();
-    void setString(const char* input);
-    void setString(std::string& input);
+    bool setString(const char* input);
+    bool setString(std::string& input);
+    virtual bool validate();
 
-  private:
+  protected:
     std::string string_value;
 };
 
