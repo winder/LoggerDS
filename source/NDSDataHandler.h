@@ -5,7 +5,6 @@
 #include <fat.h>
 #endif
 
-//#include "Singleton.h"
 #include "DataHandler.h"
 
 #include <vector>

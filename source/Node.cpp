@@ -26,7 +26,7 @@ bool Node::setString(const char* input)
   return validate();
 }
 
-bool Node::setString(std::string& input)
+bool Node::setString(const std::string& input)
 {
   string_value = input;
   return validate();

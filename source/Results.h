@@ -3,8 +3,12 @@
 
 #include "global.h"
 #include <list>
-#include "Node.h"
 #include <stdio.h>
+#include "Node.h"
+
+// TODO: should results really know about these?
+#include "ProfileNode.h"
+#include "GasNode.h"
 
 // This is a simple container class for NODE values.
 // It is used to store the content of "database" and will be required to do

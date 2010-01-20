@@ -3,6 +3,7 @@
 
 #include <string>
 #include <time.h>
+#include <stdlib.h>
 #include "Node.h"
 
 class GasNode: public Node

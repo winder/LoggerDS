@@ -15,7 +15,7 @@ class Node
     // Get the string representation of the node.
     const std::string& getString();
     bool setString(const char* input);
-    bool setString(std::string& input);
+    bool setString(const std::string& input);
     virtual bool validate();
 
   protected:

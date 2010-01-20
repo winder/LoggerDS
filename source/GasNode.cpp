@@ -5,10 +5,7 @@
 //            variable type:    | <int> | <int> | <float> | <float> |
 bool GasNode::validate()
 {
-  const char* ptr = string_value.c_str();
   std::string tmp;
-
-
   size_t start = 0;
   size_t end = string_value.find(' ');
   if (end == std::string::npos)

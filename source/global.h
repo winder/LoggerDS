@@ -4,6 +4,7 @@
 enum NodeTypes
 {
   TEXT,
+  PROFILE,
   GAS,
   SPENDING
 };

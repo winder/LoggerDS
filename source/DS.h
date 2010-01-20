@@ -6,8 +6,6 @@
 #include <nds.h>
 #include <fat.h>
 
-#include "CommandConsoleState.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

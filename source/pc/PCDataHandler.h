@@ -1,8 +1,7 @@
 #ifndef PCDATAHANDLER_H
 #define PCDATAHANDLER_H
 
-//#include "Singleton.h"
-#include "DataHandler.h"
+#include "../DataHandler.h"
 
 #include <vector>
 #include <stdio.h>

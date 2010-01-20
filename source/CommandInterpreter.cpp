@@ -108,28 +108,8 @@ bool CommandInterpreter::handle(std::string &command)
 
   else if (0 == command.find(ADD_DATABASE))
   {
-    char *cP = &command[strlen(ADD_DATABASE)];
-
-    if (!isdigit( cP[0] ))
-    {
-      error = true;
-      error_message = "bad type, use form \"add database <TYPE> <NAME>\"";
-    }
-    // TODO: don't use arrow anti-pattern
-    else
-    {
-      if (isdigit( cP[0] ))
-      {
-        int type = cP[0];
-      }
-      if (isdigit( cP[1] ))
-        int type = (type * 10) + cP[1];
-
-      // TODO: Check type is valid.
-
-      error = !dh->addDatabase( &command[ strlen(ADD_DATABASE) ] );
-      dh->reloadFile();
-    }
+    error = !dh->addDatabase( &command[ strlen(ADD_DATABASE) ] );
+    dh->reloadFile();
   }
 
   //=======================//
@@ -147,7 +127,6 @@ bool CommandInterpreter::handle(std::string &command)
   else if (0 == command.find(LOAD_PROFILE))
   {
     std::string str = &command[ strlen(LOAD_PROFILE) ];
-    str += ".dat";
     error = !dh->loadProfile( str );
   }
 
@@ -156,8 +135,8 @@ bool CommandInterpreter::handle(std::string &command)
   //========================//
   else if (0 == command.find(LOAD_DATABASE))
   {
-    error = true;
-    error_message = "load database not implemented.";
+    std::string str = &command[ strlen(LOAD_DATABASE) ];
+    error = !dh->loadDatabase( str );
   }
 
   //========================//
@@ -176,8 +155,8 @@ bool CommandInterpreter::handle(std::string &command)
   }
 
   } catch (StringException &st) {
-    printf("in exception");
     error_message = st.what();
+    error = true;
   }
   // If end is reached, error is true and error string is empty
   // leave a generic message.

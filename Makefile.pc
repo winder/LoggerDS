@@ -17,9 +17,13 @@ all: main
 main: classes
 	g++ -c $(FLAGS) $(SOURCES)/main.cpp
 #
-classes: $(HFILES) $(CPPFILES) $(CFILES)
+classes: $(HFILES) $(CPPFILES) $(CFILES) pc
 	g++ -c $(FLAGS) $(SOURCES)/*.cpp
-	gcc -c $(FLAGS) $(SOURCES)/*.c
+#	gcc -c $(FLAGS) $(SOURCES)/*.c
+
+pc:
+	g++ -c $(FLAGS) $(SOURCES)/pc/*.cpp
+#	gcc -c $(FLAGS) $(SOURCES)/pc/*.c
 	
 clean:
 	rm *.o LoggerDS 

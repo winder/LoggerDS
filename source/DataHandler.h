@@ -38,7 +38,7 @@ class DataHandler
     // load all profiles from profiles.dat to Results.
     bool loadProfiles();
     bool loadProfile(const std::string& pf);
-//    virtual bool loadDatabase(std::string& db) = 0;
+    bool loadDatabase(std::string& db);
 
     // read
     bool readFile(const std::string& filename, FILE *fp, int type);
@@ -46,7 +46,7 @@ class DataHandler
 
     // write
     bool addProfile(const std::string& profileName);
-    bool addDatabase(const std::string& databaseName);
+    bool addDatabase(const std::string& databaseString);
     bool writeLineToFile(const std::string&, FILE*, unsigned int);
     bool writeToDatabase(const std::string& lineInDatabase);
 

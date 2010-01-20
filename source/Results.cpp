@@ -13,22 +13,33 @@ bool Results::addNode(Node* n)
 
 bool Results::addNode( char* text, int type )
 {
-  if (type == TEXT)
+  bool ret = true;
+  Node *n;
+
+  switch (type)
   {
-    Node *n = new Node();
-    if ( n->setString(text) )
-      addNode( n );
+    case TEXT:
+      n = new Node();
+      if ( ret = n->setString(text) )
+        addNode( n );
+      break;
+    case PROFILE:
+      n = new ProfileNode();
+      if ( ret = n->setString(text) )
+        addNode( n );
+      break;
   }
+      
+  return ret;
 }
 
 Node* Results::getNode(int index)
 {
-  int count;
+  int count = 0;
   std::list<Node*>::iterator it;
-  for (it=data.begin(), count=0; (count < index) && (it!=data.end()); it++)
-    delete (*it);
-    printf("%s,", (*it)->getString().c_str());
-  return NULL;
+  for (it=data.begin(); (count < index) && (it!=data.end()); it++, count++);
+
+  return (*it);
 }
 
 void Results::print()
