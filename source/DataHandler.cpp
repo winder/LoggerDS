@@ -178,8 +178,11 @@ bool DataHandler::loadProfiles()
   if (pProfiles == NULL)
   {
     pProfiles = openFile("profiles.dat", "w+");
-    fputs("Default\n", pProfiles);
-    fputs("Owen\n", pProfiles);
+    if (pProfiles != NULL)
+    {
+      fputs("Default\n", pProfiles);
+      fputs("Owen\n", pProfiles);
+    }
   }
 
   if (pProfiles == NULL)

@@ -10,7 +10,10 @@ void InitializeConsole()
 
 void InitializeFilesystem()
 {
-  fatInitDefault();
+  if (fatInitDefault())
+    printf("lib fat init success.\n");
+  else
+    printf("lib fat failed.\n");
 /* // file write test.  file isn't written until fclose is called.
   // init lib fat
   if (fatInitDefault())

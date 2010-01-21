@@ -5,6 +5,7 @@
 
 #include <nds.h>
 #include <fat.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -20,12 +20,12 @@ bool Results::addNode( char* text, int type )
   {
     case TEXT:
       n = new Node();
-      if ( ret = n->setString(text) )
+      if ( (ret = n->setString(text)) )
         addNode( n );
       break;
     case PROFILE:
       n = new ProfileNode();
-      if ( ret = n->setString(text) )
+      if ( (ret = n->setString(text)) )
         addNode( n );
       break;
   }

@@ -9,8 +9,20 @@ NDSDataHandler::~NDSDataHandler()
 // load all profiles to Results.
 FILE* NDSDataHandler::openFile(const char* filename, const char* permissions)
 {
+  std::string sur = "/data/LoggerDS/";
+  sur += filename;
   // TODO: search the proper path
-  return fopen(filename, permissions);
+  FILE* fp = fopen(sur.c_str(), permissions);
+  if (fp == NULL)
+  {
+    printf("failed to open '%s'\n", sur.c_str());
+    fp = fopen( filename, permissions );
+    if (fp == NULL)
+    {
+      printf("failed to open '%s'\n", filename);
+    }
+  }
+  return fp;
 }
 
 /*
