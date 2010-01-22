@@ -104,10 +104,10 @@ clean:
 
 #---------------------------------------------------------------------------------
 install:
-	rm ~/NDS/libnds/lib/libLogLib.a
-	rm ~/NDS/libnds/include/loglib/*
-	cp lib/libLogLib.a ~/NDS/libnds/lib/
-	cp source/*.h ~/NDS/libnds/include/loglib
+	rm $(DEVKITPRO)/libnds/lib/libLogLib.a -f
+	rm $(DEVKITPRO)/libnds/include/loglib/* -f
+	cp lib/libLogLib.a $(DEVKITPRO)/libnds/lib/
+	cp source/*.h $(DEVKITPRO)/libnds/include/loglib
 
 #---------------------------------------------------------------------------------
 else

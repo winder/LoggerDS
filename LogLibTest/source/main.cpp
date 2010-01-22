@@ -1,10 +1,9 @@
 #include <fat.h>
 #include <nds.h>
-#include <loglib/DS.h>
 
 #include <loglib/global.h>
-#include <loglib/platform.h>
 #include <loglib/CommandInterpreter.h>
+#include <loglib/NDSDataHandler.h>
 
 #include <stdio.h>
 #include <string>
@@ -12,7 +11,7 @@
 int main(void)
 {
   // This is the only place the DATAHANDLER macro is used.
-  DataHandler* dh = new DATAHANDLER();
+  DataHandler* dh = new NDSDataHandler();
 //  dh->loadProfiles();
 
   CommandInterpreter *ci = new CommandInterpreter(dh);
@@ -82,7 +81,7 @@ int main(void)
         case 9:
           s_command = "load database first";
           break;
-        case 10:
+        default:
           s_command = "q";
           break;
       }
