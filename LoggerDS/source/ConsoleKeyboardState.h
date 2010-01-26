@@ -11,6 +11,7 @@ class ConsoleKeyboardState: public state
   public:
     virtual void init();
     virtual void updateState(const touchPosition &touch);
+    virtual int stateId(){ return CONSOLE_KEYBOARD_STATE; }
 
   private:
     

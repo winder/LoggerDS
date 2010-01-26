@@ -17,6 +17,9 @@ class GymNode: public Node
 {
   public:
 
+    // Expected format:
+    //                    field: | date  | type  | minutes | miles/pounds |
+    //            variable type: | <int> | <int> |  <int>  |     <int>    |
     virtual bool validate();
 
     time_t getDate();

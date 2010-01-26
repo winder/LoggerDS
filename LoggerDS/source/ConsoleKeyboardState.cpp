@@ -13,3 +13,4 @@ void ConsoleKeyboardState::updateState(const touchPosition &touch)
   if (key > 0)
     iprintf("%c", key);
 }
+
